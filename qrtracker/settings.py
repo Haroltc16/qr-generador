@@ -4,7 +4,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-o9azfksjnjrc=@__3&a%aaz=v9i1slxf%n#m9g+lv&#e%q*ccc'
-
 DEBUG = False
 
 ALLOWED_HOSTS = ['qr-generador-0d7q.onrender.com', 'localhost', '127.0.0.1']
@@ -21,7 +20,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # <- importante
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,18 +75,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
+# STATIC FILES CONFIG - para producción
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # <- carpeta de destino en producción
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # <- carpeta donde están tus CSS, JS, etc.
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # destino para producción
+STATICFILES_DIRS = [BASE_DIR / 'static']  # fuente con tus CSS, JS, etc.
 
-# Este es importante para que Render use los archivos correctamente
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# MEDIA FILES (si usas imágenes subidas, etc.)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

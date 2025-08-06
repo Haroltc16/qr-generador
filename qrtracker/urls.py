@@ -15,3 +15,4 @@ urlpatterns = [
     path('detalle/<int:qr_id>/', views.detalle_qr, name='detalle_qr'),
     path('delete_qr/<int:pk>/', views.delete_qr_code, name='delete_qr_code'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
