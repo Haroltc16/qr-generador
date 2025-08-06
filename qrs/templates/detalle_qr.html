@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle del QR</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Detalles del Código QR</h1>
+        <p><strong>Nombre:</strong> {{ qr.nombre }}</p>
+        <p><strong>URL de destino:</strong> <a href="{{ qr.url_destino }}" target="_blank">{{ qr.url_destino }}</a></p>
+        <p><strong>Visitas:</strong> {{ qr.visitas }}</p>
+        <img src="{{ qr.imagen_qr.url }}" width="200"><br><br>
+
+        <a href="{% url 'descargar_qr_imagen' qr.id %}">🖼 Descargar Imagen</a> |
+        <a href="{% url 'descargar_qr_pdf' qr.id %}">📄 Descargar PDF</a> |
+        <a href="{% url 'listar_qrs' %}" class="link-secundario">🔙 Volver</a>
+    </div>
+</body>
+</html>

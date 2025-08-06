@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de QRs</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header><h1 style="color: white;">Listado de Códigos QR</h1></header>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>QR</th>
+                <th>Visitas</th>
+                <th>Acciones</th>
+            </tr>
+            {% for qr in qrs %}
+            <tr>
+                <td>{{ qr.nombre }}</td>
+                <td><img src="{{ qr.imagen_qr.url }}"></td>
+                <td>{{ qr.visitas }}</td>
+                <td class="actions">
+                    <a href="{% url 'descargar_qr_imagen' qr.id %}">Descargar PNG</a>
+                    <a href="{% url 'descargar_qr_pdf' qr.id %}">Descargar PDF</a>
+                    <a href="{% url 'detalle_qr' qr.id %}">Detalles</a>
+                    <form action="{% url 'delete_qr_code' qr.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este QR?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="boton-crear">
+            <a href="{% url 'crear_qr' %}" class="btn-nuevo-qr">➕ Crear nuevo QR</a>
+        </div>
+
+    </div>
+</body>
+</html>

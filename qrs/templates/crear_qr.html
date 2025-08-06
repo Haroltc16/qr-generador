@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de QR</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1 style="color: white;">Generador de Código QR</h1>
+        <a href="{% url 'listar_qrs' %}" class="btn btn-secondary ver-btn">
+            <i class="fas fa-qrcode"></i> Ver QRs
+        </a>
+    </header>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" required>
+
+            <label for="url">URL de destino:</label>
+            <input type="url" name="url" required>
+
+            <button type="submit">Generar QR</button>
+        </form>
+    </div>
+</body>
+</html>
