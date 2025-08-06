@@ -80,10 +80,14 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # esto está bien para producción
 
-# Si tienes una carpeta /static en tu app o raíz del proyecto, agrégala
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # <- carpeta de destino en producción
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # <- carpeta donde están tus CSS, JS, etc.
+
+# Este es importante para que Render use los archivos correctamente
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # opcional si tienes esta carpeta
+    BASE_DIR / "static",
 ]
